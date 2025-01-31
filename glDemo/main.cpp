@@ -13,7 +13,7 @@ void renderScene();
 void resizeWindow(GLFWwindow* window, int width, int height);
 void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
 void updateScene();
-
+void DrawPolygon(int _x, int _y);
 
 int main() {
 
@@ -90,9 +90,24 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Render objects here...
+	DrawPolygon(0.3, 0.3);
+
+	DrawPolygon(-1, -1);
+
 }
 
-
+void DrawPolygon(int _x, int _y)
+{
+	glColor3f(0.3, 0.5, 0.6);
+	glBegin(GL_POLYGON); // Draw A Quad
+	glVertex2f(_x-0.5f,_y + 1.0f); // Top Left
+	glVertex2f(_x-1.0f, _y+0.0f); // Left
+	glVertex2f(_x-0.5f,_y+ 0.7f); // Bottom Left
+	glVertex2f(_x+0.5f, _y+0.7f); // Top Right
+	glVertex2f(_x + 0.4f,_y + 0.0f); // Right
+	glVertex2f(_x+0.5f, _y+0.7f); // Bottom Right
+	glEnd();
+}
 // Function to call when window resized
 void resizeWindow(GLFWwindow* window, int width, int height)
 {
@@ -125,5 +140,6 @@ void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int 
 
 // Function called to animate elements in the scene
 void updateScene() {
+
 }
 
