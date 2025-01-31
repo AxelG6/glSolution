@@ -57,7 +57,7 @@ int main() {
 
 	// Initialise scene - geometry and shaders etc
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // setup background colour to be black
-
+	
 
 	//
 	// 2. Main loop
