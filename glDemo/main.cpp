@@ -14,6 +14,8 @@ void resizeWindow(GLFWwindow* window, int width, int height);
 void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
 void updateScene();
 void DrawPolygon(int _x, int _y);
+void drawStar(float _atX, float _atY, float _innerRadius, float _outerRadius, int _points);
+
 
 int main() {
 
@@ -63,7 +65,6 @@ int main() {
 	// 2. Main loop
 	// 
 	
-
 	// Loop while program is not terminated.
 	while (!glfwWindowShouldClose(window)) {
 
@@ -90,9 +91,7 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Render objects here...
-	DrawPolygon(0.3, 0.3);
-
-	DrawPolygon(-1, -1);
+	drawStar(0.0f, 0.0f, 0.2f, 0.4f, 10);
 
 }
 
@@ -114,6 +113,28 @@ void resizeWindow(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);		// Draw into entire window
 }
 
+void drawStar(float _atX, float _atY, float _innerRadius, float _outerRadius, int _points)
+{
+	float angle = 2.0f * 3.14159265359f / _points;  // Angle between points of the star
+	float halfAngle = angle / 2.0f;
+
+	glBegin(GL_TRIANGLE_FAN);
+	//centre of the star
+	glVertex2f(_atX, _atY);
+
+	for (int i = 0; i <= _points; i++)
+	{
+		
+		// Outer point
+		glColor3f((float)rand() / (RAND_MAX), (float)rand() / (RAND_MAX), (float)rand() / (RAND_MAX));
+		glVertex2f(_atX + cos(i * angle) * _outerRadius, _atY + sin(i * angle) * _outerRadius);
+
+		// Inner point
+		glColor3f((float)rand() / (RAND_MAX), (float)rand() / (RAND_MAX), (float)rand() / (RAND_MAX));
+		glVertex2f(_atX + cos(i * angle + halfAngle) * _innerRadius, _atY + sin(i * angle + halfAngle) * _innerRadius);
+	}
+	glEnd();
+}
 
 // Function to call to handle keyboard input
 void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods)
